@@ -59,8 +59,6 @@ const Home: NextPage = () => {
 
   const { createdFiles, createdDirs, variables, logs, config } = data!;
 
-  console.log(currentFile?.data);
-
   const extension = currentFile?.path.slice(currentFile!.path.lastIndexOf('.') + 1);
 
   return (
@@ -72,7 +70,7 @@ const Home: NextPage = () => {
           {file.path}
         </button>
       ))}
-      <p>{currentFile && <Code code={currentFile.data} language={extension as any} />}</p>
+      <p>{currentFile && <Code code={currentFile.data} language={extension} />}</p>
       <p>{createdDirs && JSON.stringify(createdDirs, null, 2)}</p>
       <p>{variables && JSON.stringify(variables, null, 2)}</p>
       <p>{logs}</p>

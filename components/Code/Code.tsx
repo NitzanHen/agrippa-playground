@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import hljs from 'highlight.js/lib/core';
 import 'highlight.js/styles/github-dark-dimmed.css';
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -17,14 +17,18 @@ export interface CodeProps {
 }
 
 export const Code: React.FC<CodeProps> = ({ code, language }) => {
+	const ref = useRef<HTMLPreElement>(null);
 
 	useEffect(() => {
-		hljs.highlightAll();
+		const el = ref.current;
+		if(el) {
+			hljs.highlightBlock(el);
+		}
 	}, [code]);
 
 	return (
 		<pre>
-			<code className={language && `language-${language}`}>
+			<code ref={ref} className={language && `language-${language}`}>
 				{code}
 			</code>
 		</pre>
